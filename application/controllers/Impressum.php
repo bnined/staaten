@@ -4,11 +4,9 @@ class Impressum extends CI_Controller {
     parent::__construct();
     $this->load->helper('url');
     $this->load->library('form_validation');
-  //  $this->load->library('session');  -->autoload
     $this->load->library('user_agent');
     $this->load->model(array('textestadt_model', 'staaten_model'));
 
-    //$this->session->lang = "de";
     if($this->input->get("de")) {
       $this->session->lang = "de";
     } elseif($this->input->get("en")) {

@@ -66,7 +66,7 @@ class Staaten_model extends CI_Model {
       }
 
 
-  public function change_staat($id, $kuerzel, $landl, $landlen, $landn, $landnen, $shs) {   /* ändert Infos aus staaten Tabelle */
+  public function change_staat($id, $kuerzel, $landl, $landlen, $landn, $landnen, $shs) { 
       $data = array(
         'id' => $kuerzel,
         'land_lang' => $landl,
@@ -75,7 +75,7 @@ class Staaten_model extends CI_Model {
         'land_navi_en' => $landnen,
         'shs_ahs' => $shs
         );
-  
+
       $this->db->where('id', $id);
       $this->db->set($data);
       $this->db->update('staaten');

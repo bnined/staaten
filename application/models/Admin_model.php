@@ -7,12 +7,10 @@ class Admin_model extends CI_Model {
                 $this->load->database();
         }
 
-  // Read data using username and password
   public function login($data) {
     /*$benutzername = $data['benutzername'];
-    $benutzername = $this->db->escape($benutzername);
-    $condition = array('name' => $benutzername); */  // warum funktioniert das nicht?
-    $condition = array('name' => $data['benutzername']/*, 'passwort' => $data['password']*/);
+    $benutzername = $this->db->escape($benutzername); */
+    $condition = array('name' => $data['benutzername']);
     $this->db->select('*');
     $this->db->from('admin');
     $this->db->where($condition);
