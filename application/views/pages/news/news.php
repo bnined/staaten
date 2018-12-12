@@ -5,7 +5,7 @@
     echo $new;
   }
 
-  echo "asd".$links."asd";
+  echo $links;
   ?>
 
 

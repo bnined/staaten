@@ -28,7 +28,7 @@
   }
 
 
-  echo $this->pagination->create_links();
+  echo $this->pagination->create_links();    /* funktioniert noch nicht */
   ?>
 
 
