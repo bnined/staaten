@@ -22,12 +22,9 @@
           }
           ?>
         </ul>
-      <!--  <p>Sitemap || Kontakt || Impressum || Datenschutz</p> -->
       </nav>
 
   </footer>
-  </div>
-  </div>  <!-- Ende openNav -->
 
   </body>
 </html>
