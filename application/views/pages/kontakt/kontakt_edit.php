@@ -3,8 +3,6 @@
   <form action="edit" method="post">
 
   <?php
-    //echo form_open('edit');
-
     $text = array(
             'name' => 'volltext',
             'value' => $kontakt,
