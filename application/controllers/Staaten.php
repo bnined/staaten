@@ -5,7 +5,6 @@ class Staaten extends CI_Controller {
     parent::__construct();
     $this->load->helper('url');
     $this->load->library('form_validation');
-  //  $this->load->library('session');   -->autoload
     $this->load->library('user_agent');
     $this->load->model(array('textestadt_model', 'staaten_model', 'bilder_model'));
 
@@ -17,7 +16,7 @@ class Staaten extends CI_Controller {
   }
 
 
-  function index() {
+  public function index() {
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
     $this->load->view('templates/header', $data);
@@ -39,7 +38,7 @@ class Staaten extends CI_Controller {
   }
 
 
-  function edit() {
+  public function edit() {
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
     $this->load->view('templates/header', $data);
@@ -112,7 +111,7 @@ class Staaten extends CI_Controller {
   }
 
 
-  function add() {
+  public function add() {
     if($this->session->userdata('logged_in')) {
 
       if($this->input->post('hinzufuegen')) {
@@ -150,7 +149,7 @@ class Staaten extends CI_Controller {
       }
   }
 
-  function delete() {
+  public function delete() {
     if($this->session->userdata('logged_in')) {
       if($this->input->post('loeschen')) {
         $this->staaten_model->delete_staat($this->input->post('eintr_loeschen'));

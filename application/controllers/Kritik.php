@@ -5,11 +5,9 @@ class Kritik extends CI_Controller {
     parent::__construct();
     $this->load->helper('url');
     $this->load->library('form_validation');
-  //  $this->load->library('session');      -->autoload
     $this->load->library('user_agent');
     $this->load->model(array('textestadt_model', 'staaten_model', 'bilder_model'));
 
-    //$this->session->lang = "de";
     if($this->input->get("de")) {
       $this->session->lang = "de";
     } elseif($this->input->get("en")) {
@@ -17,7 +15,7 @@ class Kritik extends CI_Controller {
     }
   }
 
-  function index() {
+  public function index() {
 
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
@@ -38,7 +36,7 @@ class Kritik extends CI_Controller {
   }
 
 
-  function edit() {
+  public function edit() {
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
     $this->load->view('templates/header', $data);
@@ -61,9 +59,7 @@ class Kritik extends CI_Controller {
 
     $data['kritik4'] = $this->textestadt_model->get_kritik('kritik4');
 
-    //if(isset($_SESSION["logged_in"])) {
     if($this->session->userdata('logged_in')) {
-    //  if(isset($_POST["aendern"])) {
       if($this->input->post('aendern')) {
         $this->textestadt_model->change_kritik($this->input->post('kritik'), 'kritik');
         $this->textestadt_model->change_kritik($this->input->post('kritik2'), 'kritik2');

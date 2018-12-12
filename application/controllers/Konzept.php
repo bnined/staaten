@@ -14,7 +14,7 @@ class Konzept extends CI_Controller {
     }
   }
 
-  function index() {
+  public function index() {
 
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
@@ -33,7 +33,7 @@ class Konzept extends CI_Controller {
   }
 
 
-  function edit() {
+  public function edit() {
 
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();

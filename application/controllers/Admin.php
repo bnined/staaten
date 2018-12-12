@@ -8,14 +8,11 @@ class Admin extends CI_controller {
     parent::__construct();
     $this->load->helper(array('form', 'url'));
     $this->load->library('form_validation');
-    //$this->load->library('session');  ->autoload
     $this->load->model(array('admin_model', 'staaten_model'));
-
   }
 
 
-  function index($seite="pages/admin/admin") {
-
+  public function index($seite="pages/admin/admin") {
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
     $this->load->view('templates/header', $data);
     if($this->session->userdata('logged_in')) {
@@ -23,7 +20,6 @@ class Admin extends CI_controller {
     }
     $this->load->view($seite);
     $this->load->view('templates/footer');
-
   }
 
 
@@ -54,10 +50,9 @@ class Admin extends CI_controller {
 
         // Session regenerate
         $this->session->sess_regenerate();
-
         // Add user data in session
         $this->session->logged_in = array('benutzername' => $user['benutzername']);
-        //automatischer Logout nach 1 Stunde
+        //automatic logout after 1 hour
         $this->session->mark_as_temp('logged_in', 3600);
 
         $this->index('pages/admin/adminsuccess');
@@ -73,29 +68,28 @@ class Admin extends CI_controller {
 
 
 
-public function logout() {
-    $this->load->library('user_agent');
+  public function logout() {
+      $this->load->library('user_agent');
+      $sess_array = array(
+        'username' => ''
+        );
+      $this->session->unset_userdata('logged_in', $sess_array);
+      $this->session->sess_regenerate();
 
-    $sess_array = array(
-      'username' => ''
-      );
-    $this->session->unset_userdata('logged_in', $sess_array);
-    $this->session->sess_regenerate();
+      $page = substr($this->agent->referrer(), strlen(base_url())+10);
+      redirect($page);
+    }
 
-    $page = substr($this->agent->referrer(), strlen(base_url())+10);
-    redirect($page);
+
+  public function bearbeiten() {
+      $this->load->library('user_agent');
+
+      $pos = strrpos($this->agent->referrer(), "/");
+      $page = substr($this->agent->referrer(), 0, $pos);
+
+      redirect($page."/edit");
+
   }
-
-
-public function bearbeiten() {
-  $this->load->library('user_agent');
-
-  $pos = strrpos($this->agent->referrer(), "/");
-  $page = substr($this->agent->referrer(), 0, $pos);
-
-  redirect($page."/edit");
-
-}
 
 
 }

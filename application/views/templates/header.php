@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans|Source+Sans+Pro" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Serif:700i&subset=latin-ext" rel="stylesheet">
-    <link href="/02_staaten_neu/styles.css" rel="stylesheet" type="text/css">
+    <link href="/Staaten/styles.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css"> -->
   </head>
 
@@ -109,7 +109,6 @@
             <?php if($first) {$first = false;} else { echo " | "; } ?>
 
               <?php
-              //echo "<a href='".site_url('staaten/index')."'>";
               echo '<button type="submit" name="land" value="'.$id.'">'.$land.'</button>';
               ?>
             </a>

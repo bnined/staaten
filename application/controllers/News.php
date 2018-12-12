@@ -5,12 +5,10 @@ class News extends CI_Controller {
     parent::__construct();
     $this->load->helper('url');
     $this->load->library('form_validation');
-  //  $this->load->library('session');  -->autoload
     $this->load->library('user_agent');
     $this->load->model(array('news_model', 'staaten_model'));
     $this->load->library('pagination');
 
-    //$this->session->lang = "de";
     if($this->input->get("de")) {
       $this->session->lang = "de";
     } elseif($this->input->get("en")) {
@@ -19,7 +17,7 @@ class News extends CI_Controller {
   }
 
 
-  function index() {
+  public function index() {
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
     $this->load->view('templates/header', $data);
@@ -42,7 +40,7 @@ class News extends CI_Controller {
     $this->load->view('templates/footer');
   }
 
-  function edit() {
+  public function edit() {
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
     $this->load->view('templates/header', $data);

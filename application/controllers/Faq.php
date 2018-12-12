@@ -4,12 +4,9 @@ class Faq extends CI_Controller {
     parent::__construct();
     $this->load->helper('url');
     $this->load->library('form_validation');
-    //$this->load->library('session');  -->autoload
     $this->load->library('user_agent');
     $this->load->model(array('faq_model', 'staaten_model'));
 
-    //$this->session->lang = "de";
-    //if($this->input->get("de")) {
     if($this->session->lang == "" || $this->input->get("de")) {
       $this->session->lang = "de";
     } elseif($this->input->get("en")) {
@@ -18,7 +15,7 @@ class Faq extends CI_Controller {
   }
 
 
-  function index() {
+  public function index() {
 
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
@@ -30,7 +27,7 @@ class Faq extends CI_Controller {
     $this->load->view('templates/footer');
   }
 
-  function edit() {
+  public function edit() {
 
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
@@ -73,7 +70,7 @@ class Faq extends CI_Controller {
   }
 
 
-  function change() {
+  public function change() {
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
     $this->load->view('templates/header', $data);
@@ -102,7 +99,7 @@ class Faq extends CI_Controller {
 
   }
 
-  function add() {
+  public function add() {
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
     $this->load->view('templates/header', $data);
@@ -129,29 +126,29 @@ class Faq extends CI_Controller {
 
   }
 
-function delete() {
-  $data['laenderliste'] = $this->staaten_model->get_staatenliste();
-  $this->load->view('templates/header', $data);
+  public function delete() {
+    $data['laenderliste'] = $this->staaten_model->get_staatenliste();
+    $this->load->view('templates/header', $data);
 
-  $data['faq_einleitung'] = $this->faq_model->get_faq_einleitung();
-  $data['faq_liste'] = $this->faq_model->get_faq_teaser_select_2();
+    $data['faq_einleitung'] = $this->faq_model->get_faq_einleitung();
+    $data['faq_liste'] = $this->faq_model->get_faq_teaser_select_2();
 
-  if($this->session->userdata('logged_in')) {
-    if($this->input->post('loeschen')) {
-      $this->faq_model->delete_faq($this->input->post('eintr_loeschen'));
+    if($this->session->userdata('logged_in')) {
+      if($this->input->post('loeschen')) {
+        $this->faq_model->delete_faq($this->input->post('eintr_loeschen'));
+      }
+      $data['faq_liste'] = $this->faq_model->get_faq_teaser_select_2();
+      $this->load->view('pages/faq/faq_edit', $data);
+      $this->load->view('pages/faq/faq_delete', $data);
+    } else {
+      $pos = strrpos($this->agent->referrer(), "/");
+      $page = substr($this->agent->referrer(), 0, $pos);
+
+      redirect($page);
     }
-  $data['faq_liste'] = $this->faq_model->get_faq_teaser_select_2();
-  $this->load->view('pages/faq/faq_edit', $data);
-  $this->load->view('pages/faq/faq_delete', $data);
-  } else {
-    $pos = strrpos($this->agent->referrer(), "/");
-    $page = substr($this->agent->referrer(), 0, $pos);
 
-    redirect($page);
+    $this->load->view('templates/footer');
+
   }
-
-  $this->load->view('templates/footer');
-
-}
 
 }

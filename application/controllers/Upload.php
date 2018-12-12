@@ -2,20 +2,12 @@
 
 class Upload extends CI_Controller {
 
-        public function __construct()
-        {
+        public function __construct() {
                 parent::__construct();
                 $this->load->helper(array('form', 'url', 'security'));
-                //$this->load->library('session');
         }
 
-        /*public function index()
-        {
-                $this->load->view('uploads/upload_form', array('error' => ' ' ));
-        }*/
-
-        public function do_upload()
-        {
+        public function do_upload() {
                 $bildname = $this->input->post('bildname');
 
                 $config['upload_path']          = './uploads/';
@@ -45,6 +37,6 @@ class Upload extends CI_Controller {
                     }
 
                 }
-        }
+            }
 }
 ?>

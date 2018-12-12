@@ -18,7 +18,7 @@ class Impressum extends CI_Controller {
   }
 
 
-  function index() {
+  public function index() {
 
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
@@ -31,30 +31,28 @@ class Impressum extends CI_Controller {
   }
 
 
-function edit() {
+  public function edit() {
 
-  /* ========== Header ========= */
-  $data['laenderliste'] = $this->staaten_model->get_staatenliste();
-  $this->load->view('templates/header', $data);
+    /* ========== Header ========= */
+    $data['laenderliste'] = $this->staaten_model->get_staatenliste();
+    $this->load->view('templates/header', $data);
 
-  //if(isset($_SESSION["logged_in"])) {
-  if($this->session->userdata('logged_in')) {
-  //  if(isset($_POST["eintragen"])) {
-    if($this->input->post('eintragen')) {
-      $this->textestadt_model->change_impressum($this->input->post('impressumtext'));
+    if($this->session->userdata('logged_in')) {
+      if($this->input->post('eintragen')) {
+        $this->textestadt_model->change_impressum($this->input->post('impressumtext'));
+      }
+
+      $data['impressum'] = $this->textestadt_model->get_impressum();
+
+      $this->load->view('pages/impressum/impressum_edit', $data);
+
+    } else {
+      $pos = strrpos($this->agent->referrer(), "/");
+      $page = substr($this->agent->referrer(), 0, $pos);
+
+      redirect($page);
     }
-
-    $data['impressum'] = $this->textestadt_model->get_impressum();
-
-    $this->load->view('pages/impressum/impressum_edit', $data);
-
-  } else {
-  $pos = strrpos($this->agent->referrer(), "/");
-  $page = substr($this->agent->referrer(), 0, $pos);
-
-  redirect($page);
-  }
-  $this->load->view('templates/footer');
+    $this->load->view('templates/footer');
   }
 
 }

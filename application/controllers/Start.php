@@ -8,8 +8,6 @@ class Start extends CI_Controller {
     $this->load->library('user_agent');
     $this->load->model(array('textestadt_model', 'faq_model', 'news_model', 'staaten_model', 'admin_model', 'bilder_model'));
 
-    //$this->session->lang = "de";
-    //if($this->input->get("de")) {
     if($this->session->lang == "" || $this->input->get("de")) {
       $this->session->lang = "de";
     } elseif($this->input->get("en")) {
@@ -20,7 +18,6 @@ class Start extends CI_Controller {
   function index() {
     /* ========== Header ========= */
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
-    //$this->admin_model->logout();
 
     $this->load->view('templates/header', $data);
 
@@ -54,11 +51,12 @@ class Start extends CI_Controller {
     $this->load->view('templates/footer');
   }
 
+  
+
   function edit() {
     if($this->session->userdata('logged_in')) {
         /* ========== Header ========= */
         $data['laenderliste'] = $this->staaten_model->get_staatenliste();
-        //$this->admin_model->logout();
 
         $this->load->view('templates/header', $data);
 
@@ -83,7 +81,6 @@ class Start extends CI_Controller {
         $data['faqteaser'] = $this->faq_model->get_faq_teaser();
         $data['faqfragen'] = $this->faq_model->get_faq_teaser_select();
 
-        //if(isset($_POST["faq_aendern"])) {
         if($this->input->post('faq_aendern')) {
           $this->faq_model->clear_faqteaser_liste();
           for($i = 1; $i <= 5; $i++) {
@@ -105,7 +102,6 @@ class Start extends CI_Controller {
         }
 
         $data['staatenteaser'] = $this->textestadt_model->get_staaten_teaser();
-        //$data['laenderliste_shs'] = $this->staaten_model->get_staatenliste_shs();
 
         /* ------ Zwischenbild ---- */
         $upload['bild'] = 'start2';
@@ -114,7 +110,6 @@ class Start extends CI_Controller {
         $data['bildupload2'] = $this->load->view('uploads/upload_form', $upload, TRUE);
 
         $data['start2'] = $this->bilder_model->get_img_tags('start2');
-      //  $this->load->view('uploads/upload_form', array('error' => ' ' ));
 
         /* ------ Teaser Kritik ---- */
         $data['kritikteaser'] = $this->textestadt_model->get_kritik_teaser();
