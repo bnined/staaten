@@ -2,7 +2,7 @@
 if($this->session->userdata('logged_in')) {
   $username = $this->session->logged_in['benutzername'];
 } else {
-  die("Umleitung muss noch konfiguriert werden!");
+  die("Umleitung muss noch konfiguriert werden!");        /* Umleitung konfigurieren  */
 }
 ?>
 
