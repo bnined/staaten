@@ -6,7 +6,7 @@ class Kontakt extends CI_controller {
     $this->load->helper(array('url', 'form'));
     $this->load->library('form_validation');
     $this->load->library('user_agent');
-    $this->load->model(array('kontakt_model', 'staaten_model', 'bilder_model'));
+    $this->load->model(array('textestadt_model', 'staaten_model', 'bilder_model'));
 
     if($this->input->get("de")) {
       $this->session->lang = "de";
@@ -19,7 +19,7 @@ class Kontakt extends CI_controller {
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
     $this->load->view('templates/header', $data);
 
-    $data["kontakt"] = $this->kontakt_model->get_kontakttext();
+    $data["kontakt"] = $this->textestadt_model->get_kontakttext();
     $this->load->view('pages/kontakt/kontakt', $data);
     $this->load->view('templates/footer');
 
@@ -29,13 +29,13 @@ class Kontakt extends CI_controller {
     $data['laenderliste'] = $this->staaten_model->get_staatenliste();
     $this->load->view('templates/header', $data);
 
-    $data['kontakt'] = $this->kontakt_model->get_kontakttext();
+    $data['kontakt'] = $this->textestadt_model->get_kontakttext();
 
     if($this->session->userdata('logged_in')) {
       if($this->input->post('aendern')) {
-      $this->kontakt_model->change_kontakttext($this->input->post('volltext') /*, $this->input->post('sender'), $this->input->post('betreff'), $this->input->post('nachricht'), $this->input->post('button')*/);
+      $this->textestadt_model->change_kontakttext($this->input->post('volltext') /*, $this->input->post('sender'), $this->input->post('betreff'), $this->input->post('nachricht'), $this->input->post('button')*/);
       }
-      $data['kontakt'] = $this->kontakt_model->get_kontakttext();
+      $data['kontakt'] = $this->textestadt_model->get_kontakttext();
 
       if($this->input->post('generieren')) {
         $email = imagecreatetruecolor(200, 50);

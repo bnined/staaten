@@ -309,6 +309,36 @@ $data = array(
 
 /* ================= Kontakt ================= */
 
+  public function get_kontakttext() {
+
+    if($this->session->lang == "de") {
+      $query = $this->db->get('textestadt');
+    } elseif($this->session->lang == "en") {
+      $query = $this->db->get('textestadt_en');
+    }
+
+    foreach($query->result() as $erg) {
+      if($erg->id == 'kontakttext') {
+          $kontakt = $erg->volltext;
+      }
+    }
+
+    return $kontakt;
+  }
+
+  public function change_kontakttext($kontakttext) {
+    $this->db->set('volltext', $kontakttext);
+    $this->db->where('id', 'kontakttext');
+    if($this->session->lang == "de") {
+      $this->db->update('textestadt');
+    } elseif($this->session->lang == "en") {
+      $this->db->update('textestadt_en');
+    }
+
+
+
+  }
+
 /* ================= Sitemap ================= */
 
 
